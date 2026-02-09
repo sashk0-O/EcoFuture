@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Пластик — EcoFuture</title>
+  <link rel="stylesheet" href="/css/index.css">
+  </head>
+  <style>
+  
+  /* Buttons */
+  button {
+    background: #1b5e20;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.3s;
+    width: auto;
+    display: inline-block;
+  }
+  
+  button:hover {
+    background: #2e7d32;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  /* Video responsive */
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .comic {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
+    .comic-panel {
+      min-height: 180px;
+      padding: 15px;
+    }
+    
+    .character {
+      font-size: 3rem;
+    }
+    
+    .dialogue {
+      font-size: 0.85rem;
+      padding: 10px 12px;
+    }
+    
+    button {
+      width: 100%;
+      margin: 5px 0;
+      padding: 14px;
+      font-size: 0.95rem;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .comic-panel {
+      min-height: 160px;
+      padding: 12px;
+    }
+    
+    .character {
+      font-size: 2.5rem;
+    }
+    
+    .dialogue {
+      font-size: 0.8rem;
+      padding: 8px 10px;
+      min-height: 50px;
+    }
+     
+    button {
+      padding: 12px;
+      font-size: 0.9rem;
+    }
+  }
+
+/* ДІАЛОГОВИЙ КОМІКС */
+.dialog-comic {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin: 50px 0;
+  flex-wrap: wrap;
+}
+
+.dialog-character {
+  width: 45%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.avatar {
+  font-size: 6rem;
+  margin-top: 10px;
+}
+
+/* ХМАРИНКА */
+.speech-bubble {
+  position: relative;
+  background: #ffffff;
+  border: 3px solid #000;
+  border-radius: 20px;
+  padding: 16px;
+  font-size: 1rem;
+  line-height: 1.4;
+  box-shadow: 4px 4px 0 #000;
+  min-height: 80px;
+}
+
+/* Хвостик */
+.left .speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 40px;
+  border-width: 15px 15px 0;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent;
+}
+.left .speech-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 42px;
+  border-width: 13px 13px 0;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+.right .speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  right: 40px;
+  border-width: 15px 15px 0;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent;
+}
+.right .speech-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  right: 42px;
+  border-width: 13px 13px 0;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+@media (max-width: 768px) {
+  .dialog-character {
+    width: 100%;
+  }
+}
+
+/* ФОТО ПІД КОМІКСОМ */
+.comic-photo {
+  width: 100%;
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.comic-photo img {
+  width: 100%;
+  max-width: 1200px;   /* ← ОСЬ ТУТ ГОЛОВНЕ */
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Телефони */
+@media (max-width: 768px) {
+  .comic-photo img {
+    max-width: 90%;
+  }
+}
+
+
+</style>
+
+
+<body>
+<header>
+  <h1>🧴 Пластик</h1>
+  <nav>
+    <a href="/index.html">🏠 Головна</a>
+    <a href="/html/glass.html">🥛 Скло</a>
+    <a href="/html/map.html">🗺️Карта</a>
+    <a href="/html/game.html">🎮 Міні-гра</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ВІДЕО -->
+  <video controls width="100%" style="
+        border-radius: 16px;
+        margin-top: 12px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.15);">
+        <source src="/video/Проблема пластику.mp4" type="video/mp4">
+  </video>
+  
+  <!-- КОМІКС -->
+  <section>
+  <h2>📖 Комікс-діалог</h2>
+  <p>Натисни на персонажа або хмаринку — діалог продовжиться 👇</p>
+
+  <div class="dialog-comic" onclick="nextDialogue()">
+
+    <!-- ЛІВИЙ -->
+    <div class="dialog-character left">
+      <div class="speech-bubble" id="leftBubble"></div>
+      <div class="avatar">
+            <img src="/images/boy.png" alt="Еко-герой">
+      </div>
+      <strong>Еко-Герой</strong>
+    </div>
+
+    <!-- ПРАВИЙ -->
+    <div class="dialog-character right">
+      <div class="speech-bubble" id="rightBubble"></div>
+      <div class="avatar">
+            <img src="/images/girl.png" alt="Еко-герой">
+      </div>
+      <strong>Еко-Герой</strong>
+    </div>
+
+  </div>
+</section>
+  <div class="comic-photo">
+  <img src="/images/пластик.jpg" alt="Фото автора">
+</div>
+
+
+  <!-- ІНТЕРАКТИВ "ОБЕРИ СВІЙ ШЛЯХ" -->
+  <section>
+    <h2>🎮 Обери свій шлях</h2>
+    <p>Що станеться через 10 років залежить від твого рішення:</p>
+
+    <button onclick="showResult('good')">♻️ Здати пляшку на переробку</button>
+    <button onclick="showResult('bad')">🗑 Викинути в ліс</button>
+
+    <p id="result" style="font-weight:bold; margin-top:10px;"></p>
+  </section>
+</main>
+
+
+
+<!-- СКРИПТ -->
+<script>
+function showResult(choice) {
+  const r = document.getElementById('result');
+  if (choice === 'good') {
+    r.innerText = "Майбутнє: чисті ліси та річки, менший обсяг відходів!";
+  } else {
+    r.innerText = "Майбутнє: мікропластик у ґрунті, воді та їжі.";
+  }
+}
+
+
+
+const dialog = [
+  {
+    left: "Мені важко дихати… Пластик заполонив мої ліси й океани 😢",
+    right: "Я бачу проблему і хочу допомогти! З чого почати?"
+  },
+  {
+    left: "Почни з простого: не викидай пластик у природу.",
+    right: "Добре! Я буду сортувати сміття ♻️"
+  },
+  {
+    left: "Це допоможе зменшити кількість сміття і мікропластику.",
+    right: "А ще я розкажу про це друзям!"
+  },
+  {
+    left: "Разом ми зможемо врятувати майбутнє 🌱",
+    right: "Я обіцяю берегти планету!"
+  }
+];
+
+let dialogIndex = 0;
+
+const leftBubble = document.getElementById("leftBubble");
+const rightBubble = document.getElementById("rightBubble");
+
+function renderDialog() {
+  leftBubble.textContent = dialog[dialogIndex].left;
+  rightBubble.textContent = dialog[dialogIndex].right;
+}
+
+function nextDialogue() {
+  dialogIndex++;
+  if (dialogIndex >= dialog.length) dialogIndex = 0;
+  renderDialog();
+}
+
+// Початковий текст
+renderDialog();
+
+
+
+</script>
+<footer>
+  <p>© 2025 EcoFuture — Пластик</p>
+</footer>
+
+</body>
+</html>
